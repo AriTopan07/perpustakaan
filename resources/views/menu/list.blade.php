@@ -63,6 +63,7 @@
                                                         <th>#</th>
                                                         <th>Section</th>
                                                         <th>Section Icons</th>
+                                                        <th>Order</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -72,6 +73,7 @@
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $item->name_section }}</td>
                                                             <td>{{ $item->icons }}</td>
+                                                            <td>{{ $item->order }}</td>
                                                             <td>
                                                                 @if (NavHelper::cekAkses(Auth::user()->id, 'Menu', 'edit') == true)
                                                                     <button value="{{ $item->id }}" type="button"
@@ -166,6 +168,7 @@
                             $('#id_section').val(response.data.id);
                             $('#name_section_edit').val(response.data.name_section);
                             $('#icons_edit').val(response.data.icons);
+                            $('#orders_edit').val(response.data.order);
                         }
                     }
                 });
@@ -181,6 +184,7 @@
                     'id': id,
                     'name_section': $('#name_section_edit').val(),
                     'icons': $('#icons_edit').val(),
+                    'order': $('#orders_edit').val(),
                 };
 
                 $.ajax({

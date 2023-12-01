@@ -20,7 +20,7 @@ class MenuRepository
         return DB::table('menus')
             ->select('id', 'name_menu', 'url', 'section_id', 'icons', 'order')
             ->where('status', 'active')
-            ->orderBy('id', 'ASC')
+            ->orderBy('order', 'ASC')
             ->get();
     }
 
@@ -29,7 +29,8 @@ class MenuRepository
         return DB::table('menus')
             ->join('menu_sections', 'menus.section_id', '=', 'menu_sections.id')
             ->select('menus.*', 'menu_sections.name_section', 'menu_sections.icons as section_icons')
-            ->orderBy('order', 'ASC')
+            ->orderBy('menu_sections.order', 'ASC')
+            ->orderBy('menus.order', 'ASC')
             ->get();
     }
 
@@ -45,7 +46,7 @@ class MenuRepository
 
     public function get_section()
     {
-        return DB::table('menu_sections')->get();
+        return DB::table('menu_sections')->orderBy('order', 'ASC')->get();
     }
 
     public function get_menu_by_section($section)

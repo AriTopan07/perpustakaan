@@ -37,12 +37,14 @@ class MenuController extends Controller
         $request->validate([
             'name_section' => 'required|string',
             'icons' => 'required|string',
+            'order' => 'required|string',
         ]);
 
         MenuSection::create([
             'name_section' => $request->input('name_section'),
             'icons' => $request->input('icons'),
             'status' => 'active',
+            'order' => $request->input('order'),
         ]);
 
         Alert::success('Success', 'Berhasil ditambahkan.');
@@ -57,7 +59,7 @@ class MenuController extends Controller
             'section_id' => 'required|exists:menu_sections,id',
         ]);
 
-        $menu = Menu::create([
+        Menu::create([
             'parent_id' => 0,
             'section_id' => $request->input('section_id'),
             'name_menu' => $request->input('name_menu'),
@@ -94,6 +96,7 @@ class MenuController extends Controller
         $request->validate([
             'name_section' => 'required',
             'icons' => 'required',
+            'order' => 'required',
         ]);
 
         $section = MenuSection::find($id);

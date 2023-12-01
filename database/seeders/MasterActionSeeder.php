@@ -13,5 +13,24 @@ class MasterActionSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('master_actions')
+            ->insert([
+                [
+                    'name' => 'view',
+                    'description' => 'Hak untuk mengakses halaman',
+                ],
+                [
+                    'name' => 'add',
+                    'description' => 'Tombol aksi untuk menambah data',
+                ],
+                [
+                    'name' => 'edit',
+                    'description' => 'Tombol aksi untuk mengedit data',
+                ],
+                [
+                    'name' => 'delete',
+                    'description' => 'Tombol aksi untuk menghapus data',
+                ]
+            ]);
     }
 }

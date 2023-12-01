@@ -164,5 +164,35 @@
                 }
             });
         }
+
+        $(document).ready(function() {
+            // Initialize file input change events for both favicon and logo
+            $('#cover').on('change', function() {
+                let type = $(this).attr('id');
+                uploadImage(this.files[0], type);
+            });
+
+            function uploadImage(file, type) {
+                var formData = new FormData();
+                formData.append(type, file);
+
+                $.ajax({
+                    url: "{{ route('temp-images.create') }}",
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        $("#" + type + "_id").val(response[type + '_id']);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
     </script>
 @endsection

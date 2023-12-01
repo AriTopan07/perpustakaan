@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TempImagesController;
 use App\Http\Controllers\AksiController;
 use App\Http\Controllers\AplikasiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MenuController;
@@ -41,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Temp Images
     Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
+    Route::post('/upload', [TempImagesController::class, 'upload'])->name('temp-images.upload');
 
     // User
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
@@ -78,9 +81,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('permission/data-akses/edit_akses', [PermissionController::class, 'edit_akses'])->name('permission.edit-akses');
     Route::post('permission/data-akses/all_access', [PermissionController::class, 'all_access'])->name('permission.all-akses');
 
+    // Author
+    Route::get('/penulis', [AuthorController::class, 'index'])->name('penulis.index');
+    Route::post('/penulis/store', [AuthorController::class,   'store'])->name('penulis.store');
+
+    // Genre
+    Route::get('/genre', [GenreController::class, 'index'])->name('genre.index');
+    Route::post('/genre/store', [GenreController::class,   'store'])->name('genre.store');
+
     // Buku
     Route::get('/buku', [BookController::class, 'index'])->name('buku.index');
+    Route::post('/buku/store', [BookController::class, 'store'])->name('buku.store');
 
     // Rak Buku
-    Route::get('/rak-buku', [BookshelvesController::class, 'list'])->name('rak-buku.list');
+    Route::get('/rak-buku', [BookshelvesController::class, 'index'])->name('rak-buku.index');
+    Route::post('/rak-buku/store', [BookshelvesController::class,   'store'])->name('rak-buku.store');
+    Route::get('/rak-buku/rak', [BookshelvesController::class, 'rak'])->name('rak-buku.rak');
+    Route::get('/rak-buku/list', [BookshelvesController::class, 'list'])->name('rak-buku.list');
 });

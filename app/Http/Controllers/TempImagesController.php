@@ -12,6 +12,7 @@ class TempImagesController extends Controller
     {
         $favicon = $request->file('favicon');
         $logo = $request->file('logo');
+        $cover = $request->file('cover');
 
         $responseArray = [];
 
@@ -43,6 +44,19 @@ class TempImagesController extends Controller
             $responseArray['logo_id'] = $tempLogo->id;
         }
 
+        if (!empty($cover)) {
+            $coverExt = $cover->getClientOriginalExtension();
+            $coverNewName = 'cover_' . time() . '.' . $coverExt;
+
+            $tempCover = new TempImage();
+            $tempCover->name = $coverNewName;
+            $tempCover->save();
+
+            $cover->move(public_path() . '/temp', $coverNewName);
+
+            $responseArray['cover_id'] = $tempCover->id;
+        }
+
         if (!empty($responseArray)) {
             $responseArray['status'] = true;
             $responseArray['message'] = 'Images uploaded successfully';
@@ -52,5 +66,27 @@ class TempImagesController extends Controller
         }
 
         return response()->json($responseArray);
+    }
+
+    public function upload(Request $request)
+    {
+        $image = $request->cover;
+
+        if (!empty($image)) {
+            $ext = $image->getClientOriginalExtension();
+            $newName = time() . '.' . $ext;
+
+            $tempImage = new TempImage();
+            $tempImage->name = $newName;
+            $tempImage->save();
+
+            $image->move(public_path() . '/temp', $newName);
+
+            return response()->json([
+                'status' => true,
+                'image_id' => $tempImage->id,
+                'message' => 'Image uploaded successfully'
+            ]);
+        }
     }
 }

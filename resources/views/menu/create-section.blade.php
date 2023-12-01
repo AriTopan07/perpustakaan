@@ -17,10 +17,16 @@
                                 placeholder="Section baru">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <label for="icon" class="col-sm-3 col-form-label text-secondary fw-semibold">Icon</label>
                         <div class="col-sm-9">
                             <input type="text" name="icons" id="icons" class="form-control" placeholder="Icon">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="order" class="col-sm-3 col-form-label text-secondary fw-semibold">Order</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="order" id="order" class="form-control" placeholder="Icon">
                         </div>
                     </div>
                 </div>

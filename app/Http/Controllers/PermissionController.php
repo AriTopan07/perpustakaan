@@ -30,7 +30,7 @@ class PermissionController extends Controller
         $groups = Group::find($id);
         $master_action = MasterAction::get();
         $menus = $this->menu->get_all_menu();
-        $menu_sections = MenuSection::get();
+        $menu_sections = MenuSection::orderBy('order', 'ASC')->get();
 
         return view('group.permission', compact('groups', 'master_action', 'menus', 'menu_sections'));
     }

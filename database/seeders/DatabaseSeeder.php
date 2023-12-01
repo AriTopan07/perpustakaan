@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(MasterActionSeeder::class);
         $this->call(AplikasiSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(GroupSeeder::class);
@@ -21,6 +22,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ActionSeeder::class);
         $this->call(MenuSectionSeeder::class);
         $this->call(MenuSeeder::class);
-        $this->call(MasterActionSeeder::class);
     }
 }
